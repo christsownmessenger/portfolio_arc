@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArcLight | High-Speed Digital Assets by Shalom Prince-Dike</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            900: '#064e3b',
+                        },
+                        teal: {
+                            400: '#2dd4bf',
+                            500: '#14b8a6',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        glow: {
+                            '0%': { opacity: '0.4', filter: 'blur(20px)' },
+                            '100%': { opacity: '0.8', filter: 'blur(30px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome for UI Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #090d16;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+        
+        /* Subtle Grid Pattern */
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+
+        .bg-radial-gradient {
+            background: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.15) 0%, rgba(9, 13, 22, 0) 70%);
+        }
+
+        /* Glassmorphism Styles */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px -10px rgba(16, 185, 129, 0.15);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #a7f3d0 50%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-accent-gradient {
+            background: linear-gradient(135deg, #34d399 0%, #2dd4bf 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #090d16;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f2937;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #10b981;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen antialiased selection:bg-emerald-500 selection:text-black bg-grid-pattern">
+
+    <!-- Ambient Background Glows -->
+    <div class="pointer-events-none fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-emerald-500/10 blur-[120px] rounded-full z-0"></div>
+    <div class="pointer-events-none fixed bottom-10 right-0 w-[500px] h-[500px] bg-teal-500/5 blur-[150px] rounded-full z-0"></div>
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-50 px-4 lg:px-12 py-4">
+        <nav class="max-w-7xl mx-auto glass-panel rounded-2xl px-6 py-3 flex items-center justify-between shadow-2xl">
+            <!-- Brand & Founder Badge -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-black font-extrabold text-xl shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform">
+                    A
+                </div>
+                <div>
+                    <span class="text-xl font-black tracking-tight text-white flex items-center gap-1.5">
+                        ArcLight <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                    </span>
+                    <span class="text-[10px] text-zinc-400 font-medium block uppercase tracking-wider">By Shalom Prince-Dike</span>
+                </div>
+            </a>
+
+            <!-- Quick Navigation Links -->
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-zinc-300">
+                <a href="#services" class="hover:text-emerald-400 transition-colors">Services</a>
+                <a href="#portfolio" class="hover:text-emerald-400 transition-colors">Portfolio</a>
+                <a href="#pricing" class="hover:text-emerald-400 transition-colors">Pricing</a>
+                <a href="#about" class="hover:text-emerald-400 transition-colors">Founder</a>
+            </div>
+
+            <!-- Header Action Button -->
+            <div class="flex items-center gap-3">
+                <a href="#contact" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-black font-semibold text-sm transition-all duration-200 shadow-md shadow-emerald-500/20 hover:shadow-emerald-500/40 hover:-translate-y-0.5">
+                    Get Started <i class="fa-solid fa-arrow-right ml-1.5 text-xs"></i>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative z-10 pt-12 pb-20 px-4 max-w-7xl mx-auto text-center">
+        <!-- Network Optimization Badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-emerald-500/30 text-xs font-semibold text-emerald-300 mb-8 shadow-inner">
+            <span class="flex h-2 w-2 relative">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <i class="fa-solid fa-bolt text-amber-400"></i> MTN & Telecel 3G/4G Data Ultra-Fast Optimized
+        </div>
+
+        <!-- Main Headline -->
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight max-w-5xl mx-auto leading-[1.15] mb-6 text-white">
+            We Build High-Speed <span class="text-gradient">Digital Assets</span> for Modern Businesses
+        </h1>
+
+        <!-- Subtitle -->
+        <p class="max-w-2xl mx-auto text-base sm:text-lg text-zinc-400 font-normal leading-relaxed mb-10">
+            Engineered by <strong class="text-zinc-200">Shalom Prince-Dike</strong>. We deploy ultra-optimized, lightning-fast web apps and high-converting landing pages that load instantly on standard West African mobile data networks.
+        </p>
+
+        <!-- CTA Action Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+            <a href="#portfolio" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-base transition-all shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2 group">
+                <i class="fa-solid fa-rocket"></i> Explore Portfolio
+                <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+            </a>
+            <a href="#pricing" class="w-full sm:w-auto px-8 py-4 rounded-xl glass-panel hover:bg-zinc-800/80 text-white font-semibold text-base transition-all border border-zinc-700/80 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-calculator text-emerald-400"></i> Calculate ROI & Pricing
+            </a>
+        </div>
+
+        <!-- Animated Performance Metrics Banner -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+            <div class="glass-card p-4 rounded-2xl text-center">
+                <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400 mb-1">&lt;0.8s</div>
+                <div class="text-xs text-zinc-400 uppercase tracking-wider font-medium">Avg. Mobile Load Time</div>
+            </div>
+            <div class="glass-card p-4 rounded-2xl text-center">
+                <div class="text-2xl sm:text-3xl font-extrabold text-teal-400 mb-1">99.9%</div>
+                <div class="text-xs text-zinc-400 uppercase tracking-wider font-medium">Uptime Guarantee</div>
+            </div>
+            <div class="glass-card p-4 rounded-2xl text-center">
+                <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400 mb-1">3.4x</div>
+                <div class="text-xs text-zinc-400 uppercase tracking-wider font-medium">Higher Conversion</div>
+            </div>
+            <div class="glass-card p-4 rounded-2xl text-center">
+                <div class="text-2xl sm:text-3xl font-extrabold text-teal-400 mb-1">100%</div>
+                <div class="text-xs text-zinc-400 uppercase tracking-wider font-medium">Responsive & Clean</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Showcase Grid -->
+    <section id="portfolio" class="py-20 px-4 max-w-7xl mx-auto relative z-10">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 block mb-2"><i class="fa-solid fa-cube"></i> Featured Work</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Engineered for Performance</h2>
+            </div>
+            <p class="text-zinc-400 max-w-md text-sm mt-3 md:mt-0">
+                Explore real web apps delivered with zero compromise on speed, interactivity, and design precision.
+            </p>
+        </div>
+
+        <!-- Portfolio Cards Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- CARD 1: Crypto Pulse -->
+            <div class="glass-card rounded-3xl overflow-hidden p-6 sm:p-8 flex flex-col justify-between group">
+                <div>
+                    <!-- Visual Mockup Container -->
+                    <div class="bg-zinc-950/90 rounded-2xl border border-zinc-800 p-4 mb-6 shadow-2xl relative overflow-hidden">
+                        <!-- Top Header Bar -->
+                        <div class="flex items-center justify-between border-b border-zinc-800/80 pb-3 mb-4">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+                                <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+                                <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+                                <span class="text-xs text-zinc-500 font-mono ml-2">crypto-pulse.live</span>
+                            </div>
+                            <span class="text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-800 px-2 py-0.5 rounded font-mono flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> REALTIME API
+                            </span>
+                        </div>
+
+                        <!-- Dashboard Mock Content -->
+                        <div class="space-y-3 font-mono">
+                            <div class="flex justify-between items-center bg-zinc-900/80 p-3 rounded-xl border border-zinc-800">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-sm">₿</div>
+                                    <div>
+                                        <div class="text-xs font-bold text-white">Bitcoin / USD</div>
+                                        <div class="text-[10px] text-zinc-500">BTC-PERP</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-xs font-bold text-emerald-400">$87,420.50</div>
+                                    <div class="text-[10px] text-emerald-400">+4.28% ▲</div>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-between items-center bg-zinc-900/80 p-3 rounded-xl border border-zinc-800">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-sm">Ξ</div>
+                                    <div>
+                                        <div class="text-xs font-bold text-white">Ethereum / USD</div>
+                                        <div class="text-[10px] text-zinc-500">ETH-PERP</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-xs font-bold text-emerald-400">$3,410.15</div>
+                                    <div class="text-[10px] text-emerald-400">+2.15% ▲</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Animated Pulse Visual Bar -->
+                            <div class="pt-2 flex items-end gap-1.5 h-12">
+                                <div class="bg-emerald-500/40 w-full h-[40%] rounded-t"></div>
+                                <div class="bg-emerald-500/60 w-full h-[70%] rounded-t"></div>
+                                <div class="bg-emerald-500/30 w-full h-[50%] rounded-t"></div>
+                                <div class="bg-emerald-500/90 w-full h-[90%] rounded-t"></div>
+                                <div class="bg-emerald-400 w-full h-[100%] rounded-t"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Info -->
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        <span class="text-[11px] bg-zinc-800 text-zinc-300 px-2.5 py-1 rounded-lg border border-zinc-700">Real-Time Data</span>
+                        <span class="text-[11px] bg-zinc-800 text-zinc-300 px-2.5 py-1 rounded-lg border border-zinc-700">WebSockets</span>
+                        <span class="text-[11px] bg-zinc-800 text-zinc-300 px-2.5 py-1 rounded-lg border border-zinc-700">Tailwind CSS</span>
+                        <span class="text-[11px] bg-emerald-950 text-emerald-300 px-2.5 py-1 rounded-lg border border-emerald-800">Sub-Second Updates</span>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors">Crypto Pulse</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed mb-6">
+                        Live Real-Time Market Tracker Dashboard. High-frequency updates with responsive websocket streaming, ultra-low bundle footprint, and full mobile optimization.
+                    </p>
+                </div>
+
+                <a href="https://vercel.app" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 rounded-xl bg-zinc-800 hover:bg-emerald-500 hover:text-black text-white font-semibold text-sm transition-all text-center flex items-center justify-center gap-2 group-hover:shadow-lg group-hover:shadow-emerald-500/20">
+                    <span>Launch Live Preview</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </a>
+            </div>
+
+            <!-- CARD 2: Maria Teresa School Portal -->
+            <div class="glass-card rounded-3xl overflow-hidden p-6 sm:p-8 flex flex-col justify-between group">
+                <div>
+                    <!-- Visual Mockup Container -->
+                    <div class="bg-zinc-950/90 rounded-2xl border border-zinc-800 p-4 mb-6 shadow-2xl relative overflow-hidden">
+                        <!-- Top Header Bar -->
+                        <div class="flex items-center justify-between border-b border-zinc-800/80 pb-3 mb-4">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+                                <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+                                <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+                                <span class="text-xs text-zinc-500 font-mono ml-2">mariateresa-portal.edu</span>
+                            </div>
+                            <span class="text-[10px] bg-teal-950 text-teal-400 border border-teal-800 px-2 py-0.5 rounded font-mono">
+                                ADMISSIONS OPEN
+                            </span>
+                        </div>
+
+                        <!-- Educational Portal Mock Content -->
+                        <div class="space-y-3">
+                            <div class="bg-gradient-to-r from-teal-950/60 to-zinc-900 p-3 rounded-xl border border-teal-800/40 flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-teal-500/20 text-teal-300 flex items-center justify-center font-bold">
+                                        <i class="fa-solid fa-graduation-cap"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs font-bold text-white">Maria Teresa Academy</div>
+                                        <div class="text-[10px] text-zinc-400">Elite Admissions & Portal</div>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] bg-teal-500 text-black font-bold px-2 py-1 rounded">2026/2027</span>
+                            </div>
+
+                            <!-- Mini Application Progress bar -->
+                            <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-800 space-y-2">
+                                <div class="flex justify-between text-[10px] font-mono text-zinc-400">
+                                    <span>Application Verification</span>
+                                    <span class="text-teal-400 font-bold">100% Instant Sync</span>
+                                </div>
+                                <div class="w-full bg-zinc-800 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-gradient-to-r from-teal-400 to-emerald-400 h-full w-full"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Info -->
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        <span class="text-[11px] bg-zinc-800 text-zinc-300 px-2.5 py-1 rounded-lg border border-zinc-700">EdTech Hub</span>
+                        <span class="text-[11px] bg-zinc-800 text-zinc-300 px-2.5 py-1 rounded-lg border border-zinc-700">Custom Forms</span>
+                        <span class="text-[11px] bg-zinc-800 text-zinc-300 px-2.5 py-1 rounded-lg border border-zinc-700">WhatsApp Alert</span>
+                        <span class="text-[11px] bg-teal-950 text-teal-300 px-2.5 py-1 rounded-lg border border-teal-800">Fast Data Sync</span>
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-teal-400 transition-colors">Maria Teresa School Portal</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed mb-6">
+                        Elite Admissions Hub & Student Management Portal. Crafted for frictionless school enrollment, fee notifications, and instant parent inquiry dispatch.
+                    </p>
+                </div>
+
+                <a href="https://vercel.app" target="_blank" rel="noopener noreferrer" class="w-full py-3 px-4 rounded-xl bg-zinc-800 hover:bg-teal-500 hover:text-black text-white font-semibold text-sm transition-all text-center flex items-center justify-center gap-2 group-hover:shadow-lg group-hover:shadow-teal-500/20">
+                    <span>Launch Live Preview</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Strategic Pricing Table Section -->
+    <section id="pricing" class="py-20 px-4 max-w-7xl mx-auto relative z-10">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 block mb-2"><i class="fa-solid fa-tags"></i> Straightforward Local Pricing</span>
+            <h2 class="text-3xl sm:text-5xl font-extrabold text-white mb-4">Investment Built for ROI</h2>
+            <p class="text-zinc-400 text-base">
+                Transparent packages tailored for Ghanaian businesses, schools, and startups with zero hidden fees.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
+            
+            <!-- COLUMN 1: Growth Landing Page -->
+            <div class="glass-card rounded-3xl p-8 flex flex-col justify-between relative border border-zinc-800">
+                <div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-1">Growth Landing Page</h3>
+                            <p class="text-xs text-zinc-400">Best for schools, spas, clinics, & boutiques</p>
+                        </div>
+                        <span class="px-3 py-1 bg-zinc-800 text-zinc-300 text-xs font-semibold rounded-full border border-zinc-700">1-Page High Speed</span>
+                    </div>
+
+                    <div class="mb-8">
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-sm font-semibold text-emerald-400">GHS</span>
+                            <span class="text-4xl font-black text-white">1,500</span>
+                        </div>
+                        <p class="text-xs text-zinc-500 mt-1">One-time payment • Fast turnaround</p>
+                    </div>
+
+                    <ul class="space-y-4 text-sm text-zinc-300 mb-8">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                            <span>1-Page Responsive High-Converting Layout</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                            <span><strong>MTN/Telecel Mobile Network</strong> Speed Optimization</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                            <span>Custom Contact & Lead Capture Forms</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                            <span>Direct <strong>WhatsApp Instant Click-to-Chat</strong> Integration</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                            <span>Fast CDN Data Hosting & Domain Setup</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <a href="#contact" onclick="selectPackage('Growth Landing Page (GHS 1,500)')" class="w-full py-3.5 px-6 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-center text-sm transition-all border border-zinc-700">
+                    Order Package
+                </a>
+            </div>
+
+            <!-- COLUMN 2: Interactive Custom Web App (Featured) -->
+            <div class="glass-card rounded-3xl p-8 flex flex-col justify-between relative border-2 border-emerald-500/60 bg-gradient-to-b from-emerald-950/20 to-zinc-900/80 shadow-2xl shadow-emerald-500/10">
+                
+                <!-- Popular Badge -->
+                <div class="absolute -top-4 right-8 bg-gradient-to-r from-emerald-500 to-teal-500 text-black font-extrabold text-[11px] uppercase tracking-wider px-4 py-1.5 rounded-full shadow-lg">
+                    ★ Most Popular Choice
+                </div>
+
+                <div>
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-1">Interactive Custom Web App</h3>
+                            <p class="text-xs text-emerald-300/80">Logistics, financial tools, portal & dashboards</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-8">
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-sm font-semibold text-emerald-400">GHS</span>
+                            <span class="text-5xl font-black text-white">3,000</span>
+                        </div>
+                        <p class="text-xs text-zinc-400 mt-1">Custom engineering • Turnkey solution</p>
+                    </div>
+
+                    <ul class="space-y-4 text-sm text-zinc-200 mb-8">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-emerald-400 mt-1"></i>
+                            <span><strong>Custom Full Web Application Architecture</strong></span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-emerald-400 mt-1"></i>
+                            <span>Real-Time Dashboards & Data Visualizers</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-emerald-400 mt-1"></i>
+                            <span>Database Storage, Authentication & User Hub</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-emerald-400 mt-1"></i>
+                            <span>Third-Party API Integration (Payment, Analytics, SMS)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-emerald-400 mt-1"></i>
+                            <span><strong>1-Month Free Dedicated Technical Maintenance</strong></span>
+                        </li>
+                    </ul>
+                </div>
+
+                <a href="#contact" onclick="selectPackage('Interactive Custom Web App (GHS 3,000)')" class="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-black font-extrabold text-center text-sm transition-all shadow-lg shadow-emerald-500/25">
+                    Order Package Now
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Interactive Calculator Widget -->
+        <div class="mt-16 glass-panel rounded-3xl p-6 sm:p-8 max-w-4xl mx-auto border border-zinc-800">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+                <div>
+                    <h4 class="text-lg font-bold text-white mb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-emerald-400"></i> Speed ROI & Mobile Conversion Calculator
+                    </h4>
+                    <p class="text-xs text-zinc-400">See how fast loading times directly boost mobile customer retention.</p>
+                </div>
+                
+                <div class="flex items-center gap-4 w-full sm:w-auto">
+                    <label for="visitorSlider" class="text-xs text-zinc-300 font-mono whitespace-nowrap">Monthly Visitors:</label>
+                    <input type="range" id="visitorSlider" min="500" max="20000" step="500" value="5000" class="w-full sm:w-40 accent-emerald-500 bg-zinc-800 rounded-lg cursor-pointer">
+                    <span id="visitorVal" class="text-sm font-bold text-emerald-400 font-mono w-16 text-right">5,000</span>
+                </div>
+            </div>
+
+            <div class="mt-6 pt-6 border-t border-zinc-800/80 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                <div class="bg-zinc-950/60 p-3 rounded-xl border border-zinc-800">
+                    <div class="text-[11px] text-zinc-400 uppercase font-medium">Estimated Extra Leads/Mo</div>
+                    <div id="calcLeads" class="text-xl font-bold text-emerald-400 mt-1">+150 Leads</div>
+                </div>
+                <div class="bg-zinc-950/60 p-3 rounded-xl border border-zinc-800">
+                    <div class="text-[11px] text-zinc-400 uppercase font-medium">Bandwidth Data Saved</div>
+                    <div id="calcData" class="text-xl font-bold text-teal-400 mt-1">78% Savings</div>
+                </div>
+                <div class="bg-zinc-950/60 p-3 rounded-xl border border-zinc-800">
+                    <div class="text-[11px] text-zinc-400 uppercase font-medium">Estimated Target Load Time</div>
+                    <div class="text-xl font-bold text-white mt-1">&lt; 0.75 Sec</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lead Generation Contact Form -->
+    <section id="contact" class="py-20 px-4 max-w-4xl mx-auto relative z-10">
+        <div class="glass-panel rounded-3xl p-8 sm:p-12 border border-zinc-800 shadow-2xl relative overflow-hidden">
+            
+            <div class="text-center max-w-xl mx-auto mb-10">
+                <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 block mb-2"><i class="fa-solid fa-paper-plane"></i> Quick Lead Dispatch</span>
+                <h2 class="text-3xl font-extrabold text-white mb-2">Start Your High-Speed Project</h2>
+                <p class="text-zinc-400 text-sm">
+                    Fill out this form and receive an instant project estimate routed directly to WhatsApp for rapid discussion.
+                </p>
+            </div>
+
+            <form id="leadForm" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Business Name -->
+                    <div>
+                        <label for="businessName" class="block text-xs font-medium text-zinc-300 uppercase tracking-wider mb-2">Business / School / Client Name *</label>
+                        <input type="text" id="businessName" required placeholder="e.g. Apex Health Clinic" class="w-full bg-zinc-950/80 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all">
+                    </div>
+
+                    <!-- WhatsApp Number -->
+                    <div>
+                        <label for="whatsappNumber" class="block text-xs font-medium text-zinc-300 uppercase tracking-wider mb-2">WhatsApp Phone Number *</label>
+                        <div class="flex">
+                            <span class="inline-flex items-center px-3 rounded-l-xl border border-r-0 border-zinc-800 bg-zinc-900 text-zinc-400 text-xs font-mono">
+                                +233
+                            </span>
+                            <input type="tel" id="whatsappNumber" required placeholder="24 000 0000" class="w-full bg-zinc-950/80 border border-zinc-800 rounded-r-xl px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Service Needed -->
+                    <div>
+                        <label for="serviceNeeded" class="block text-xs font-medium text-zinc-300 uppercase tracking-wider mb-2">Service Needed *</label>
+                        <select id="serviceNeeded" required class="w-full bg-zinc-950/80 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all">
+                            <option value="Growth Landing Page (GHS 1,500)">Growth Landing Page (GHS 1,500)</option>
+                            <option value="Interactive Custom Web App (GHS 3,000)">Interactive Custom Web App (GHS 3,000)</option>
+                            <option value="Custom Enterprise Suite">Custom Enterprise Suite</option>
+                        </select>
+                    </div>
+
+                    <!-- Budget Range -->
+                    <div>
+                        <label for="budget" class="block text-xs font-medium text-zinc-300 uppercase tracking-wider mb-2">Target Budget</label>
+                        <select id="budget" class="w-full bg-zinc-950/80 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all">
+                            <option value="GHS 1,500 - GHS 2,500">GHS 1,500 - GHS 2,500</option>
+                            <option value="GHS 3,000 - GHS 5,000">GHS 3,000 - GHS 5,000</option>
+                            <option value="GHS 5,000+ Custom">GHS 5,000+ Custom</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Message Note -->
+                <div>
+                    <label for="projectNotes" class="block text-xs font-medium text-zinc-300 uppercase tracking-wider mb-2">Project Overview / Special Requirements</label>
+                    <textarea id="projectNotes" rows="3" placeholder="Briefly describe your goals, required features, or target launch date..." class="w-full bg-zinc-950/80 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all"></textarea>
+                </div>
+
+                <!-- Submit CTA -->
+                <button type="submit" class="w-full py-4 px-8 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-black font-extrabold text-base transition-all shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2 cursor-pointer">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Generate Instant WhatsApp Lead</span>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Founder & Developer Profile -->
+    <section id="about" class="py-16 px-4 max-w-5xl mx-auto relative z-10">
+        <div class="glass-card rounded-3xl p-8 sm:p-10 border border-zinc-800 flex flex-col sm:flex-row items-center gap-8">
+            <div class="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-black font-black text-4xl shrink-0 shadow-xl shadow-emerald-500/20 border-2 border-emerald-300">
+                SPD
+            </div>
+
+            <div>
+                <span class="text-xs font-bold uppercase tracking-widest text-emerald-400 block mb-1">Lead UX Engineer & Founder</span>
+                <h3 class="text-2xl sm:text-3xl font-extrabold text-white mb-3">Shalom Prince-Dike</h3>
+                <p class="text-zinc-400 text-sm leading-relaxed mb-4">
+                    Specializing in high-performance digital architectures that load effortlessly on standard cellular networks in West Africa. At ArcLight, we blend modern aesthetic design with low-latency client code so your conversion rates stay ahead of the competition.
+                </p>
+                <div class="flex items-center gap-4 text-xs font-medium text-zinc-300">
+                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-code text-emerald-400"></i> Modern Web Stack</span>
+                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-gauge-high text-teal-400"></i> Speed Engineering</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="border-t border-zinc-800/80 py-12 px-4 relative z-10 bg-zinc-950/80">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="text-center md:text-left">
+                <span class="text-lg font-black text-white flex items-center justify-center md:justify-start gap-2">
+                    ArcLight <span class="text-emerald-400">Digital</span>
+                </span>
+                <p class="text-xs text-zinc-500 mt-1">
+                    © 2026 ArcLight Digital Agency. Engineered by Shalom Prince-Dike. All Rights Reserved.
+                </p>
+            </div>
+
+            <!-- Network Delivery Badge -->
+            <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-[11px] text-zinc-400">
+                <i class="fa-solid fa-wifi text-emerald-400"></i> Built for MTN & Telecel High-Speed Delivery
+            </div>
+
+            <!-- Social Links -->
+            <div class="flex items-center space-x-4 text-zinc-400 text-sm">
+                <a href="https://vercel.app" target="_blank" class="hover:text-emerald-400 transition-colors"><i class="fa-solid fa-globe"></i></a>
+                <a href="#contact" class="hover:text-emerald-400 transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#" class="hover:text-emerald-400 transition-colors"><i class="fa-brands fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SUCCESS CONFIRMATION MODAL -->
+    <div id="successModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass-panel rounded-3xl p-8 max-w-md w-full border border-emerald-500/40 text-center shadow-2xl animate-fade-in">
+            <div class="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 text-2xl flex items-center justify-center mx-auto mb-4 border border-emerald-500/50">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-2">Project Request Prepared!</h3>
+            <p class="text-zinc-400 text-sm mb-6 leading-relaxed">
+                Your details have been parsed into a pre-filled WhatsApp message. Click below to connect directly with <strong>Shalom Prince-Dike</strong> on WhatsApp.
+            </p>
+            
+            <a id="whatsappLinkBtn" href="#" target="_blank" class="w-full py-4 px-6 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-sm transition-all flex items-center justify-center gap-2 mb-3">
+                <i class="fa-brands fa-whatsapp text-lg"></i> Continue to WhatsApp Chat
+            </a>
+
+            <button onclick="closeModal()" class="text-xs text-zinc-500 hover:text-zinc-300 transition-colors">
+                Close Window
+            </button>
+        </div>
+    </div>
+
+    <!-- Native JavaScript Logic -->
+    <script>
+        // Interactive ROI Calculator Logic
+        const visitorSlider = document.getElementById('visitorSlider');
+        const visitorVal = document.getElementById('visitorVal');
+        const calcLeads = document.getElementById('calcLeads');
+        const calcData = document.getElementById('calcData');
+
+        function updateCalculator() {
+            const visitors = parseInt(visitorSlider.value);
+            visitorVal.innerText = visitors.toLocaleString();
+            
+            // Formula estimating extra leads generated with sub-second page speed
+            const extraLeads = Math.round(visitors * 0.035);
+            calcLeads.innerText = `+${extraLeads} Leads`;
+
+            // Data savings calculation
+            const dataSavings = Math.min(85, Math.round(60 + (visitors / 5000) * 5));
+            calcData.innerText = `${dataSavings}% Savings`;
+        }
+
+        visitorSlider.addEventListener('input', updateCalculator);
+
+        // Package Quick Selection Helper
+        function selectPackage(packageName) {
+            const serviceDropdown = document.getElementById('serviceNeeded');
+            if(serviceDropdown) {
+                serviceDropdown.value = packageName;
+            }
+        }
+
+        // WhatsApp Form Handler
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const businessName = document.getElementById('businessName').value;
+            const whatsappNumber = document.getElementById('whatsappNumber').value;
+            const serviceNeeded = document.getElementById('serviceNeeded').value;
+            const budget = document.getElementById('budget').value;
+            const notes = document.getElementById('projectNotes').value;
+
+            // Formulate WhatsApp Message String
+            const message = `Hello Shalom Prince-Dike (ArcLight Digital),%0A%0AI would like to start a project!%0A%0A*Business Name:* ${encodeURIComponent(businessName)}%0A*WhatsApp Contact:* +233${encodeURIComponent(whatsappNumber)}%0A*Service Required:* ${encodeURIComponent(serviceNeeded)}%0A*Budget:* ${encodeURIComponent(budget)}%0A*Notes:* ${encodeURIComponent(notes || 'None')}`;
+
+            // Replace with target Agency phone number or format for instant client routing
+            const targetNumber = '233240000000'; 
+            const whatsappURL = `https://wa.me/${targetNumber}?text=${message}`;
+
+            // Set link and display modal
+            const linkBtn = document.getElementById('whatsappLinkBtn');
+            linkBtn.href = whatsappURL;
+
+            document.getElementById('successModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('successModal').classList.add('hidden');
+        }
+
+        // Run calculator init on load
+        window.onload = function() {
+            updateCalculator();
+        };
+    </script>
+</body>
+</html>
